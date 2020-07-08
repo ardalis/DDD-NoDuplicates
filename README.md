@@ -20,7 +20,11 @@ One option is to give the entity method all of the data it needs to perform the 
 
 ## Pass a Service for Checking Uniqueness Into Entity Method
 
-With this option, you perform dependency injection via method injection, and pass the necessary dependency into the entity. Unfortunately, this means the caller will need to figure out how to get this dependency in order to call the method.
+With this option, you perform dependency injection via method injection, and pass the necessary dependency into the entity. Unfortunately, this means the caller will need to figure out how to get this dependency in order to call the method. They also could pass in the wrong service, or perhaps no service at all, in which case the domain rule would be bypassed.
+
+## Pass a Function for Checking Uniqueness Into Entity Method
+
+This is just like the previous option, but instead of passing a type we just pass a function. Unfortunately, the function needs to have all the necessary dependencies and/or data to perform the work, which otherwise would have been encapsulated in the entity method. There's also nothing in the design that requires the calling code to pass in the appropriate function or even any useful function at all (a no-op function could easily be supplied). The lack of encapsulation means the validation of the business rule is not enforced at all by our domain model, but only by the attentiveness and discipline of the client application developer.
 
 ## Reference
 
@@ -30,10 +34,14 @@ This project was inspired by [this exchange on twitter between Kamil and me](htt
 2. Pass all the names matching the proposed name to the update method.
 3. Pass an `IUniquenessChecker` into the update method which returns a count of entities with that name. [Done](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/04_MethodInjectionService)
 4. Pass a function that performs the same logic as #3.
-5. Check the invaraint in an Aggregate.
+5. Check the invariant in an Aggregate.
 6. Create a unique constraint in the database. [Done](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/01_Database)
 
 My own two approaches include:
 
 7. Use a domain service (which will lead to an anemic entity) [Done](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/02_DomainService)
 8. Use domain events and a handler to perform the logic
+
+### Learn More
+
+[Learn Domain-Driven Design Fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)
