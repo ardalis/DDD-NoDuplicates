@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Xunit;
 
-namespace NoDuplicatesDesigns._01_Database
+namespace NoDuplicatesDesigns._06_PassFilteredDataToMethod
 {
     public class ProductUpdateNameTests
     {
@@ -17,8 +18,8 @@ namespace NoDuplicatesDesigns._01_Database
 
         private void SeedData()
         {
-            _productRepository.Add(new Product { Id = TEST_ID1, Name = TEST_NAME });
-            _productRepository.Add(new Product { Id = TEST_ID2, Name = Guid.NewGuid().ToString() });
+            _productRepository.Add(new Product(TEST_NAME) { Id = TEST_ID1 });
+            _productRepository.Add(new Product(Guid.NewGuid().ToString()) { Id = TEST_ID2 });
         }
 
         [Fact]
@@ -26,8 +27,11 @@ namespace NoDuplicatesDesigns._01_Database
         {
             var product = _productRepository.GetById(TEST_ID2);
             string newName = Guid.NewGuid().ToString();
+            var matchingNames = _productRepository.List(p => p.Name == newName)
+                .Select(p => p.Name)
+                .ToArray();
 
-            product.Name = newName;
+            product.UpdateName(newName, matchingNames);
 
             Assert.Equal(newName, product.Name);
         }
@@ -37,8 +41,11 @@ namespace NoDuplicatesDesigns._01_Database
         {
             var product = _productRepository.GetById(TEST_ID2);
             string newName = product.Name;
+            var matchingNames = _productRepository.List(p => p.Name == newName)
+                .Select(p => p.Name)
+                .ToArray();
 
-            product.Name = newName;
+            product.UpdateName(newName, matchingNames);
 
             Assert.Equal(newName, product.Name);
         }
@@ -48,7 +55,11 @@ namespace NoDuplicatesDesigns._01_Database
         {
             var product = new Product() { Id = 4 };
             string newName = Guid.NewGuid().ToString();
-            product.Name = newName;
+            var matchingNames = _productRepository.List(p => p.Name == newName)
+                .Select(p => p.Name)
+                .ToArray();
+
+            product.UpdateName(newName, matchingNames);
 
             _productRepository.Add(product);
 
@@ -59,18 +70,26 @@ namespace NoDuplicatesDesigns._01_Database
         public void ThrowsExceptionGivenDuplicateNameAfterUpdate()
         {
             var product = _productRepository.GetById(TEST_ID2);
-            product.Name = TEST_NAME;
-            var result = Assert.Throws<Exception>(() => _productRepository.Update(product));
+            string newName = TEST_NAME;
+            var matchingNames = _productRepository.List(p => p.Name == newName)
+                .Select(p => p.Name)
+                .ToArray();
+
+            var result = Assert.Throws<Exception>(() => product.UpdateName(newName, matchingNames));
 
             Assert.Equal("Duplicate name.", result.Message);
         }
 
         [Fact]
-        public void ThrowsExceptionGivenDuplicateNameOnInsert()
+        public void ThrowsExceptionGivenDuplicateNameForNewEntity()
         {
             var newproduct = new Product() { Id = 3 };
-            newproduct.Name = TEST_NAME;
-            var result = Assert.Throws<Exception>(() => _productRepository.Add(newproduct));
+            string newName = TEST_NAME;
+            var matchingNames = _productRepository.List(p => p.Name == newName)
+                .Select(p => p.Name)
+                .ToArray();
+
+            var result = Assert.Throws<Exception>(() => newproduct.UpdateName(newName, matchingNames));
 
             Assert.Equal("Duplicate name.", result.Message);
         }

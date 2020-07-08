@@ -22,7 +22,7 @@ namespace NoDuplicatesDesigns._05_MethodInjectionFunction
             _productRepository.Add(new Product(Guid.NewGuid().ToString()) { Id = TEST_ID2 });
         }
 
-        public void ValidateNameIsUnique(string name, Product productBeingUpdated)
+        private void ValidateNameIsUnique(string name, Product productBeingUpdated)
         {
             if (_productRepository
                 .List(p => p.Name == name && p.Id != productBeingUpdated.Id)
