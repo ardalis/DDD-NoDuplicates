@@ -30,6 +30,40 @@ namespace NoDuplicatesDesigns._05_MethodInjectionFunction
         }
 
         [Fact]
+        public void UpdatesNameGivenNewUniqueName()
+        {
+            var product = _productRepository.GetById(TEST_ID2);
+            string newName = Guid.NewGuid().ToString();
+
+            product.UpdateName(newName, ValidateNameIsUnique);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
+        public void UpdatesNameGivenCurrentName()
+        {
+            var product = _productRepository.GetById(TEST_ID2);
+            string newName = product.Name;
+
+            product.UpdateName(newName, ValidateNameIsUnique);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
+        public void InsertsNewProductGivenUniqueName()
+        {
+            string newName = Guid.NewGuid().ToString();
+            var product = new Product(newName) { Id = 4 };
+
+            product.UpdateName(newName, ValidateNameIsUnique);
+            _productRepository.Add(product);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
         public void ThrowsExceptionGivenDuplicateNameAfterUpdate()
         {
             var product = _productRepository.GetById(TEST_ID2);

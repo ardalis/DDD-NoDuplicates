@@ -23,6 +23,43 @@ namespace NoDuplicatesDesigns._04_MethodInjectionService
         }
 
         [Fact]
+        public void UpdatesNameGivenNewUniqueName()
+        {
+            var product = _productRepository.GetById(TEST_ID2);
+            var checker = new UniquessCheckerService(_productRepository);
+            string newName = Guid.NewGuid().ToString();
+
+            product.UpdateName(newName, checker);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
+        public void UpdatesNameGivenCurrentName()
+        {
+            var product = _productRepository.GetById(TEST_ID2);
+            var checker = new UniquessCheckerService(_productRepository);
+            string newName = product.Name;
+
+            product.UpdateName(newName, checker);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
+        public void InsertsNewProductGivenUniqueName()
+        {
+            string newName = Guid.NewGuid().ToString();
+            var product = new Product(newName) { Id = 4 };
+            var checker = new UniquessCheckerService(_productRepository);
+
+            product.UpdateName(newName, checker);
+            _productRepository.Add(product);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
         public void ThrowsExceptionGivenDuplicateNameAfterUpdate()
         {
             var product = _productRepository.GetById(TEST_ID2);
