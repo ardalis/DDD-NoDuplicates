@@ -18,6 +18,10 @@ One option is to detect if the name is duplicated in a domain service, and force
 
 One option is to give the entity method all of the data it needs to perform the check. In this case you would need to pass in a list of every name that it's supposed to be different from. And of course don't include the entity's current name, since naturally it's allowed to be what it already is. This probably doesn't scale well when you could have millions or more entities.
 
+## Pass a Service for Checking Uniqueness Into Entity Method
+
+With this option, you perform dependency injection via method injection, and pass the necessary dependency into the entity. Unfortunately, this means the caller will need to figure out how to get this dependency in order to call the method.
+
 ## Reference
 
 This project was inspired by [this exchange on twitter between Kamil and me](https://twitter.com/kamgrzybek/status/1280868055627763713). Kamil's ideas for approaching this problem included:
