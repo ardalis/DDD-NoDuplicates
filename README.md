@@ -30,5 +30,6 @@ This project was inspired by [this exchange on twitter between Kamil and me](htt
 6. Create a unique constraint in the database. [Done](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/01_Database)
 
 My own two approaches include:
+
 7. Use a domain service (which will lead to an anemic entity) [Done](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/02_DomainService)
 8. Use domain events and a handler to perform the logic
