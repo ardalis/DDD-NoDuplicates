@@ -23,6 +23,49 @@ namespace NoDuplicatesDesigns._03_PassDataToMethod
         }
 
         [Fact]
+        public void UpdatesNameGivenNewUniqueName()
+        {
+            var product = _productRepository.GetById(TEST_ID2);
+            string newName = Guid.NewGuid().ToString();
+            var otherProductNames = _productRepository.List(p => p.Id != product.Id)
+                .Select(p => p.Name)
+                .ToArray();
+
+            product.UpdateName(newName, otherProductNames);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
+        public void UpdatesNameGivenCurrentName()
+        {
+            var product = _productRepository.GetById(TEST_ID2);
+            string newName = product.Name;
+            var otherProductNames = _productRepository.List(p => p.Id != product.Id)
+                .Select(p => p.Name)
+                .ToArray();
+
+            product.UpdateName(newName, otherProductNames);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
+        public void InsertsNewProductGivenUniqueName()
+        {
+            string newName = Guid.NewGuid().ToString();
+            var product = new Product(newName) { Id = 4 };
+            var otherProductNames = _productRepository.List(p => p.Id != product.Id)
+                .Select(p => p.Name)
+                .ToArray();
+
+            product.UpdateName(newName, otherProductNames);
+            _productRepository.Add(product);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
         public void ThrowsExceptionGivenDuplicateNameAfterUpdate()
         {
             var product = _productRepository.GetById(TEST_ID2);

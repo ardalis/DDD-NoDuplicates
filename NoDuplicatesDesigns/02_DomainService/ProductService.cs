@@ -18,6 +18,7 @@ namespace NoDuplicatesDesigns._02_DomainService
 
             var productToUpdate = _productRepository.GetById(product.Id);
             productToUpdate.Name = newName;
+            product.Name = newName;
             _productRepository.Update(productToUpdate);
         }
 

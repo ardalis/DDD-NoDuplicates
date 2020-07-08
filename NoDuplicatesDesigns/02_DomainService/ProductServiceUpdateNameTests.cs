@@ -22,12 +22,47 @@ namespace NoDuplicatesDesigns._02_DomainService
         }
 
         [Fact]
+        public void UpdatesNameGivenNewUniqueName()
+        {
+            var product = _productRepository.GetById(TEST_ID2);
+            string newName = Guid.NewGuid().ToString();
+            var productService = new ProductService(_productRepository);
+
+            productService.UpdateName(product, newName);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
+        public void UpdatesNameGivenCurrentName()
+        {
+            var product = _productRepository.GetById(TEST_ID2);
+            string newName = product.Name;
+            var productService = new ProductService(_productRepository);
+
+            productService.UpdateName(product, newName);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
+        public void InsertsNewProductGivenUniqueName()
+        {
+            string newName = Guid.NewGuid().ToString();
+            var product = new Product(newName) { Id = 4 };
+            var productService = new ProductService(_productRepository);
+
+            productService.Add(product);
+
+            Assert.Equal(newName, product.Name);
+        }
+
+        [Fact]
         public void ThrowsExceptionGivenDuplicateName()
         {
             var product = _productRepository.GetById(TEST_ID2);
             var productService = new ProductService(_productRepository);
 
-            
             var result = Assert.Throws<Exception>(() => productService.UpdateName(product, TEST_NAME));
 
             Assert.Equal("Duplicate name.", result.Message);
