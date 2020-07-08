@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace NoDuplicatesDesigns._02_DomainService
+namespace NoDuplicatesDesigns._03_PassDataToMethod
 {
-
     public class ProductRepository
     {
         private Dictionary<int, Product> _products = new Dictionary<int, Product>();
@@ -14,10 +13,10 @@ namespace NoDuplicatesDesigns._02_DomainService
         {
             var product = _products.FirstOrDefault(k => k.Key == id).Value;
 
-            return new Product() { Id = product.Id, Name = product.Name };
+            return new Product(product.Name) { Id = product.Id };
         }
 
-        public IEnumerable<Product> List(Expression<Func<Product,bool>> filterExpression)
+        public IEnumerable<Product> List(Expression<Func<Product, bool>> filterExpression)
         {
             return _products.Values.AsQueryable().Where(filterExpression).AsEnumerable();
         }
@@ -33,7 +32,7 @@ namespace NoDuplicatesDesigns._02_DomainService
         {
             if (!_products.ContainsKey(product.Id)) throw new Exception("No such id.");
 
-            _products[product.Id].Name = product.Name;
+            _products[product.Id].UpdateName(product.Name, List(p => p.Id != product.Id).Select(p => p.Name).ToArray());
         }
     }
 }
