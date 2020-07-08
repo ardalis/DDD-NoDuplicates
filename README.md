@@ -20,4 +20,11 @@ One option is to give the entity method all of the data it needs to perform the 
 
 ## Reference
 
-This project was inspired by [this exchange on twitter between Kamil and me](https://twitter.com/kamgrzybek/status/1280868055627763713).
+This project was inspired by [this exchange on twitter between Kamil and me](https://twitter.com/kamgrzybek/status/1280868055627763713). Kamil's ideas for approaching this problem included:
+
+1. Pass all the current names to the update method.
+2. Pass all the names matching the proposed name to the update method.
+3. Pass an `IUniquenessChecker` into the update method which returns a count of entities with that name.
+4. Pass a function that performs the same logic as #3.
+5. Check the invaraint in an Aggregate.
+6. Create a unique constraint in the database.
