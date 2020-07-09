@@ -34,7 +34,7 @@ This project was inspired by [this exchange on twitter between Kamil and me](htt
 2. Pass all the names matching the proposed name to the update method. [Done](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/06_PassFilteredDataToMethod)
 3. Pass an `IUniquenessChecker` into the update method which returns a count of entities with that name. [Done](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/04_MethodInjectionService)
 4. Pass a function that performs the same logic as #3. [Done](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/05_MethodInjectionFunction)
-5. Check the invariant in an Aggregate.
+5. Check the invariant in an Aggregate. [Done - Anemic Children](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/07_AggregateWithAnemicChildren)
 6. Create a unique constraint in the database. [Done](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/01_Database)
 
 My own two approaches include:
