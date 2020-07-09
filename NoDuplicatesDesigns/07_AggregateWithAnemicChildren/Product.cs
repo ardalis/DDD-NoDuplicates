@@ -10,6 +10,6 @@
             Name = name;
         }
         public int Id { get; set; }
-        public string Name { get; internal set; } // so the service can set but a client in another assembly cannot
+        public string Name { get; internal set; } // so the aggregate can set but a client in another assembly cannot
     }
 }

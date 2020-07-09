@@ -2,7 +2,7 @@
 using System.Linq;
 using Xunit;
 
-namespace NoDuplicatesDesigns._07_AggregateWithAnemicChildren
+namespace NoDuplicatesDesigns._10_AggregateWithMediatR
 {
     public class CatalogAddProductTests
     {
@@ -20,8 +20,8 @@ namespace NoDuplicatesDesigns._07_AggregateWithAnemicChildren
         private void SeedData()
         {
             var catalog = new Catalog() { Id = TEST_CATALOG_ID };
-            catalog.Products.Add(new Product { Id = TEST_ID1, Name = TEST_NAME });
-            catalog.Products.Add(new Product { Id = TEST_ID2, Name = Guid.NewGuid().ToString() });
+            catalog.Products.Add(new Product(TEST_NAME) { Id = TEST_ID1, CatalogId = TEST_CATALOG_ID });
+            catalog.Products.Add(new Product(Guid.NewGuid().ToString()) { Id = TEST_ID2, CatalogId = TEST_CATALOG_ID });
             _catalogRepository.Add(catalog);
         }
 
