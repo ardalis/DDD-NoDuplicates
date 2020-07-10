@@ -10,6 +10,7 @@
             Name = name;
         }
         public int Id { get; set; }
+        public int CatalogId { get; set; }
         public string Name { get; private set; }
 
         public void UpdateName(string newName, Catalog catalog)

@@ -42,6 +42,10 @@ namespace NoDuplicatesDesigns._02_DomainService
 
             productService.UpdateName(product, newName);
 
+            // here's why I don't like this approach - the client ends up with 2 ways to work with product: through a service or directly
+            product.UpdatePrice(2);
+            _productRepository.Update(product);
+
             Assert.Equal(newName, product.Name);
         }
 
