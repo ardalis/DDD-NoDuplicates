@@ -79,6 +79,8 @@ Sometimes it doesn't make sense to involve or model an aggregate. In this case y
 
 [Approach 11 - MediatR Domain Events](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/11_DomainEventsMediatR)
 
+I also have an article walking through how to set this up in your ASP.NET Core app, [Immediate Domain Event Salvation with MediatR](https://ardalis.com/immediate-domain-event-salvation-with-mediatr/).
+
 ## Summary
 
 In most situations where there are business rules that involve multiple entities and their peers, I've found introducing an aggregate makes sense. Assuming you go the aggregate route, be careful to avoid putting all logic in the root and having anemic children. I've had good success using events to communicate up to the aggregate root from child entities (in addition to this sample see [AggregateEvents](https://github.com/ardalis/AggregateEvents)).
