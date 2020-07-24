@@ -16,7 +16,7 @@
         public void UpdateName(string newName)
         {
             if (Name == newName) return;
-            DomainEvents.Raise(new ProductNameChangeRequested(this, newName)).GetAwaiter().GetResult();
+            DomainActions.ValidationRequest(new ProductNameValidationRequest(this, newName)).GetAwaiter().GetResult();
             Name = newName;
         }
     }

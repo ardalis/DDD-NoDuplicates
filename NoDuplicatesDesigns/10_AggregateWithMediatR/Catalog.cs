@@ -29,7 +29,7 @@ namespace NoDuplicatesDesigns._10_AggregateWithMediatR
             if (Products.Any(p => p.Name == newName)) throw new System.Exception("Duplicate name.");
         }
 
-        public class ProductNameChangeHandler : INotificationHandler<ProductNameChangeRequested>
+        public class ProductNameChangeHandler : IRequestHandler<ProductNameValidationRequest>
         {
             private readonly CatalogRepository _catalogRepository;
 
@@ -38,14 +38,15 @@ namespace NoDuplicatesDesigns._10_AggregateWithMediatR
                 _catalogRepository = catalogRepository;
             }
 
-            public Task Handle(ProductNameChangeRequested notification, CancellationToken cancellationToken)
+            public Task<Unit> Handle(ProductNameValidationRequest request, CancellationToken cancellationToken)
             {
-                var catalog = _catalogRepository.GetById(notification.Product.CatalogId);
-                if (catalog.Products.Any(p => p.Id == notification.Product.Id))
+                var catalog = _catalogRepository.GetById(request.Product.CatalogId);
+                if (catalog.Products.Any(p => p.Id == request.Product.Id))
                 {
-                    catalog.ValidateNameNotAlreadyInUse(notification.NewName);
+                    catalog.ValidateNameNotAlreadyInUse(request.NewName);
                 }
-                return Task.CompletedTask;
+
+                return Unit.Task;
             }
         }
     }

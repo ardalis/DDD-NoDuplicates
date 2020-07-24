@@ -2,9 +2,9 @@
 
 namespace NoDuplicatesDesigns._10_AggregateWithMediatR
 {
-    public class ProductNameChangeRequested : INotification
+    public class ProductNameValidationRequest : IRequest
     {
-        public ProductNameChangeRequested(Product product, string newName)
+        public ProductNameValidationRequest(Product product, string newName)
         {
             Product = product;
             NewName = newName;

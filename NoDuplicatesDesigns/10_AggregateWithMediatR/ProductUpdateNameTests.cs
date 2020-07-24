@@ -24,14 +24,14 @@ namespace NoDuplicatesDesigns._10_AggregateWithMediatR
         private void SetUpMediatR()
         {
             _serviceProvider = BuildServiceProvider();
-            DomainEvents.Mediator = () => BuildMediator(_serviceProvider);
+            DomainActions.Mediator = () => BuildMediator(_serviceProvider);
         }
 
         private ServiceProvider BuildServiceProvider()
         {
             var services = new ServiceCollection();
 
-            services.AddMediatR(typeof(DomainEvents));
+            services.AddMediatR(typeof(DomainActions));
             services.AddSingleton(_catalogRepository);
 
             return services.BuildServiceProvider();
