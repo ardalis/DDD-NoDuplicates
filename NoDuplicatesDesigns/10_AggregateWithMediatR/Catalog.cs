@@ -15,7 +15,6 @@ namespace NoDuplicatesDesigns._10_AggregateWithMediatR
 
         // exposing as list just to make repo code simpler
         public List<Product> Products { get; private set; } = new List<Product>();
-        protected bool _eventsWiredUp = false;
 
         public void AddProduct(Product product)
         {
