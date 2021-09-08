@@ -44,7 +44,7 @@ This is just like the previous option, but instead of passing a type we just pas
 
 ## Pass Filtered Data Into Entity Method
 
-This is a variation of Approach 3 in which the calling code now passes just the existing names that match the proposed name, so that the method can determine if the new name already exists. It seems like it's doing *almost* all of the useful work required for the business rule, without actually doing the check for uniqueness. This to me requires far to much work and knowledge for the calling code.
+This is a variation of Approach 3 in which the calling code now passes just the existing names that match the proposed name, so that the method can determine if the new name already exists. It seems like it's doing *almost* all of the useful work required for the business rule, without actually doing the check for uniqueness. This to me requires far too much work and knowledge for the calling code.
 
 [Approach 6 - Pass Filtered Data to Method](https://github.com/ardalis/DDD-NoDuplicates/tree/master/NoDuplicatesDesigns/06_PassFilteredDataToMethod)
 
@@ -105,4 +105,4 @@ My own two approaches include:
 
 ### Learn More
 
-[Learn Domain-Driven Design Fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)
+[Learn Domain-Driven Design Fundamentals](https://app.pluralsight.com/library/courses/fundamentals-domain-driven-design)
