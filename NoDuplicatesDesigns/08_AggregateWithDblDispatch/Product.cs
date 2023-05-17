@@ -16,6 +16,9 @@
         public void UpdateName(string newName, Catalog catalog)
         {
             if (Name == newName) return;
+
+            // nothing forces catalog to be the *correct* catalog instance so check it here
+            if (catalog.Id != CatalogId) throw new System.Exception("Wrong catalog passed in");
             catalog.ValidateNameNotAlreadyInUse(newName);
             Name = newName;
         }

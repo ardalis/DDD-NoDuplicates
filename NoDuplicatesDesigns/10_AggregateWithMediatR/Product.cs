@@ -1,4 +1,6 @@
-﻿namespace NoDuplicatesDesigns._10_AggregateWithMediatR
+﻿using MediatR;
+
+namespace NoDuplicatesDesigns._10_AggregateWithMediatR
 {
     public class Product
     {
@@ -19,5 +21,14 @@
             DomainEvents.Raise(new ProductNameChangeRequested(this, newName)).GetAwaiter().GetResult();
             Name = newName;
         }
+
+        // alternately without the static DomainEvents class just pass IMediator around
+        public void UpdateName2(string newName, IMediator mediator)
+        {
+            if (Name == newName) return;
+            mediator.Publish(new ProductNameChangeRequested(this, newName));
+            Name = newName;
+        }
+
     }
 }
