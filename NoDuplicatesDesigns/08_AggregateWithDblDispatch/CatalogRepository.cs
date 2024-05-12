@@ -16,7 +16,7 @@ namespace NoDuplicatesDesigns._08_AggregateWithDoubleDispatch
 
             foreach (var product in catalog.Products)
             {
-                newCatalog.Products.Add(new Product(product.Name) { Id = product.Id });
+                newCatalog.Products.Add(new Product(product.Name) { Id = product.Id, CatalogId = catalog.Id });
             }
             return newCatalog;
         }

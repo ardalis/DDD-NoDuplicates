@@ -20,8 +20,8 @@ namespace NoDuplicatesDesigns._08_AggregateWithDoubleDispatch
         private void SeedData()
         {
             var catalog = new Catalog() { Id = TEST_CATALOG_ID };
-            catalog.Products.Add(new Product(TEST_NAME) { Id = TEST_ID1 });
-            catalog.Products.Add(new Product(Guid.NewGuid().ToString()) { Id = TEST_ID2 });
+            catalog.Products.Add(new Product(TEST_NAME) { Id = TEST_ID1, CatalogId = TEST_CATALOG_ID });
+            catalog.Products.Add(new Product(Guid.NewGuid().ToString()) { Id = TEST_ID2, CatalogId = TEST_CATALOG_ID });
             _catalogRepository.Add(catalog);
         }
 
